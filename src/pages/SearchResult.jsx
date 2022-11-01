@@ -1,9 +1,21 @@
 import React from "react";
-
-
-
+import { useParams } from "react-router-dom";
 
 export default function SearchResults({articles}){
+
+    let { articleId } = useParams()
+    console.log('Article ID', articleId)
+
+    if(!articleId){
+        return(
+            <p>Please Slelect an article.</p>
+        )
+    }
+
+    const article = articles.find((a) => a.uri === articleId) //exact one that matches
+    console.log(article)
+
+    articleId = parseInt(articleId)
 
 
 

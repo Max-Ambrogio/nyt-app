@@ -8,6 +8,8 @@ export default function ArticleSearchForm(props){
         props.onSubmit(query)
     }
 
+    //use state variables
+
     return(
         <form onSubmit={handleSubmit}>
             <input className="search-form" type='text' value={query} onChange={(e) => setQuery(e.target.value)} />

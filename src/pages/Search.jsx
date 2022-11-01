@@ -13,10 +13,11 @@ export default function Search(props){
 
     // const date = new Date(`${article.pub_date}`)
     // date.toDateString();
-
+    //take string as is
     const beginDate = (date) => (article) => {
         article.date.toDateString().includes((date || '').toDateString());
     }
+
     console.log(beginDate())
    
     
@@ -24,6 +25,9 @@ export default function Search(props){
     
     
     useEffect(() => {
+        if(!q){
+            return
+        }
         console.log('searching for articles matching: ', q)
         fetch(`${NYT_ARTICLE_ENDPOINT}?q=${q}&api-key=${NYT_API_KEY}`)
         .then((response) => response.json())
