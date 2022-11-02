@@ -20,7 +20,7 @@ export default function ArticleResults({articles}){
                     <div key={`${index}`} className='grid_item'>  
                         <div className="article_copy">
                         {/* <Link to={`/blog/${article.id}`}>{article.title}</Link> */}
-                            <Link className="link" to={`/search/${uri[3]}`}>{article.headline.main}</Link>
+                            <Link className="link" to={`/results/${uri[3]}`}>{article.headline.main}</Link>
                             <p>{article.abstract}</p>
                             <p className="byline">{article.byline.original}</p>
                             <div className="tags">

@@ -34,11 +34,8 @@ function App() {
                 <Route index element={<BlogArticle />} />
                 <Route path='*' element={<p>Select an article</p>} />
               </Route>
-              <Route path='search' element={<Search />}> 
-                <Route path=':searchId' element={<SearchResults />} />
-                <Route index element={<SearchResults />} />
-                <Route path='*' element={<p>Select an article</p>} />
-              </Route>
+              <Route path='search' element={<Search />} /> 
+              <Route path='result' element={<SearchResults />} />
               
           </Routes>
         </main>
