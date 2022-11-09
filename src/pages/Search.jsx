@@ -7,34 +7,29 @@ import { NYT_API_KEY, NYT_ARTICLE_ENDPOINT } from '../constants';
 
 export default function Search(props){
     const [searchParams, setSearchParams] = useSearchParams();
+    const [articles, setArticles] = useState([]);
+    const [rawSearchParams, setRawSearchParams] = useState({})
     console.log('Search for', searchParams)
-    const [articles, setArticles] = useState([])
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [sort, SetSort] = useState('relevance');
+
 
     // if(beginDate)
    
     
     const q = searchParams.get('q');
+    const bD = searchParams.get('startDate');
+    const eD = searchParams.get('endDate');
+    const sort = searchParams.get('sort');
     
     
     useEffect(() => {
         if(!q){
             return
         };
-        if(!startDate){
-            return
-            // data.start
-        };
-        if(!endDate){
-            return
-            // data.start
-        };
-        if(!sort){
-            return
-            // data.start
-        };
+
+        const validParams = Object.keys(rawSearchParams).map((key) => {
+            const val = rawSearchParams[key]
+            return (val) ? `${key=val}` : ''
+        }).join('&')
 
         console.log('searching for articles matching: ', q)
         fetch(`${NYT_ARTICLE_ENDPOINT}?q=${q}&api-key=${NYT_API_KEY}`)
@@ -42,12 +37,12 @@ export default function Search(props){
         .then((data) => {
             console.log('got data', data)
             setArticles(data.response.docs)
-            
         })
-    }, [q, sort, startDate, endDate])
+    }, [rawSearchParams])
     
-    const handleSearch = (query, sort, startDate, endDate) => {
-        setSearchParams( {q: query} )
+    const handleSearch = (values) => {
+        setSearchParams( { values } )
+        setRawSearchParams( {values} )
 
         
         // console.log('query', query)

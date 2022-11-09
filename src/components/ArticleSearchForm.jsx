@@ -1,14 +1,21 @@
 import React, {useState} from "react";
 
 export default function ArticleSearchForm(props){
-    const [query , setQuery] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [sort, SetSort] = useState('relevance');
+
+    const [values, setValues] = useState({
+        sort: 'newest'
+    })
+
+    const handleChange = (evt) =>{
+        setValues({
+            ...values,
+            [evt.target.name]: evt.target.value
+        })
+    }
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        props.onSubmit(query)
+        props.onSubmit(values)
 
     }
 
@@ -16,19 +23,19 @@ export default function ArticleSearchForm(props){
 
     return(
         <form onSubmit={handleSubmit}>
-            <input className="search-form" type='text' value={query} onChange={(e) => setQuery(e.target.value)} />
+            <input className="search-form" type='text' value={values.q} onChange={(handleChange)} />
             <div className="date-search">
-                <input type="date" name="start-date" id="start-date" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+                <input type="date" name="start-date" id="start-date" value={values.startDate} onChange={(handleChange)}/>
                 <p> - </p>
-                <input type="date" name="end-date" id="end-date" value={endDate}   onChange={(e) => setEndDate(e.target.value)} />
+                <input type="date" name="end-date" id="end-date" value={values.endDate}   onChange={(handleChange)} />
             </div>
             <button className="submit" type="submit">Search</button>
             <div className="dropdown">
                 <button className="dropbtn">Filter</button>
-                <select className="dropdown-content" value={sort} onChange={(e) => SetSort(e.target.value)}>
-                    <option value='newest'>Newest</option>
-                    <option value='oldest'>Oldest</option>
-                    <option value='best_match'>Relevance</option>
+                <select name="sort" className="dropdown-content" value={values.sort} onChange={(handleChange)}>
+                    <option name='newest' value='newest'>Newest</option>
+                    <option name='oldest' value='oldest'>Oldest</option>
+                    <option name='relevance' value='best_match'>Relevance</option>
                 </select>
             </div>
         </form>
